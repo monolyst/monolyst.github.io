@@ -38,7 +38,7 @@
 
         var tableSchema = {
             id: "weather",
-            alias: "30 days of weather in seattle, data by Accuweather",
+            alias: "weather",
             columns: cols
         };
 
@@ -47,7 +47,7 @@
 
     // Download the data
     myConnector.getData = function(table, doneCallback) {
-        $.getJSON("https://ezrhp3xg6f.execute-api.us-east-1.amazonaws.com/v1/weather", function(resp) {
+        $.getJSON("https://ezrhp3xg6f.execute-api.us-east-1.amazonaws.com/v1/weather/", function(resp) {
             var feat = resp.results,
                 tableData = [];
 
