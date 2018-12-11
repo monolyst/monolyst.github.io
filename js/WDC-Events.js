@@ -12,10 +12,10 @@
             dataType: tableau.dataTypeEnum.string
         }, {
             id: "StartDateUTC",
-            dataType: tableau.dataTypeEnum.string
+            dataType: tableau.dataTypeEnum.datetime
         }, {
             id: "EndDateUTC",
-            dataType: tableau.dataTypeEnum.string
+            dataType: tableau.dataTypeEnum.datetime
         }, {
             id: "On_street",
             dataType: tableau.dataTypeEnum.string
