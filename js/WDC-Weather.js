@@ -1,98 +1,84 @@
-// Example of Standard Connections in Web Data Connectors using JSONPlaceholder JSON endpoints
-// Tableau 10.1 - WDC API v2.1
+(function() {
+    // Create the connector object
+    var myConnector = tableau.makeConnector();
 
-// Define our Web Data Connector
-(function(){
-  var myConnector = tableau.makeConnector();
-  myConnector.getSchema = function(schemaCallback) {
-    // Create a promise to get our Standard Connections List from a JSON file. This increases code readability since we
-    // no longer need to define the lengthy object within our javascript itself.
-    var standardConnections = new Promise(function(resolve, reject) {
-    loadJSON("StandardConnectionsData", function(json) {
-      var obj = JSON.parse(json);
-      var connectionList = [];
-      for (var connection in obj.connections) {
-        connectionList.push(obj.connections[connection]);
-      }
-      resolve(connectionList);
-    }, true);
-    });
-    // Create a promise to get our table schema info as well, just like above
-    var tables = new Promise(function(resolve, reject) {
-      loadJSON("StandardConnectionsTableInfoData", function(json) {
-        var obj = JSON.parse(json);
-        var tableList = [];
-        for (var table in obj.tables) {
-          tableList.push(obj.tables[table]);
-        }
-        resolve(tableList);
-      }, true);
-    });
-    // Once all our promises are resolved, we can call the schemaCallback to send this info to Tableau
-    Promise.all([tables, standardConnections]).then(function(data) {
-      schemaCallback(data[0], data[1]);
-    });
-  }
+    // Define the schema
+    myConnector.getSchema = function(schemaCallback) {
+        var cols = [{
+            id: "weatherID",
+            dataType: tableau.dataTypeEnum.string
+        }, {
+            id: "AMHasPrecipitation",
+            dataType: tableau.dataTypeEnum.bool
+        }, {
+            id: "AMTemperature",
+            dataType: tableau.dataTypeEnum.float
+        }, {
+            id: "AMWeather",
+            dataType: tableau.dataTypeEnum.string
+        }, {
+            id: "AMWeatherIcon",
+            dataType: tableau.dataTypeEnum.float
+        }, {
+            id: "PMHasPrecipitation",
+            dataType: tableau.dataTypeEnum.bool
+        }, {    
+            id: "PMTemperature",
+            dataType: tableau.dataTypeEnum.float
+        }, {          
+            id: "PMWeather",
+            dataType: tableau.dataTypeEnum.string
+        }, {         
+            id: "PMWeatherIcon",
+            dataType: tableau.dataTypeEnum.float
+        }, {                                   
+            id: "travel_date",
+            dataType: tableau.dataTypeEnum.string
+        }];
 
-  myConnector.getData = function(table, doneCallback) {
-    // Load our data from the API. Multiple tables for WDC work by calling getData multiple times with a different id
-    // so we want to make sure we are getting the correct table data per getData call
-    loadJSON(table.tableInfo.id, function(data) {
-      var obj = JSON.parse(data);
-      var tableData = [];
-      // Iterate through the data and build our table
-      for (var i = 0; i < obj.length; i++) {
-        tableEntry = {};
-        var ref = obj[i];
-        // We can use this handy shortcut because our JSON column names match our schema's column names perfectly
-        Object.getOwnPropertyNames(ref).forEach(function(val, idx, array){
-          // Handle specific cases by checking the name of the property
-          switch(val) {
-            case "address":
-              tableEntry.lat = ref[val].geo.lat;
-              tableEntry.lng = ref[val].geo.lng;
-              tableEntry.zipcode = ref[val].zipcode;
-              break;
-            case "company":
-              tableEntry.companyname = ref[val].name;
-              tableEntry.catchPhrase = ref[val].catchPhrase;
-              tableEntry.bs = ref[val].bs;
-              break;
-            default:
-              tableEntry[val] = ref[val];
-          }
+        var tableSchema = {
+            id: "weather",
+            alias: "30 days of weather in seattle, data by Accuweather",
+            columns: cols
+        };
+
+        schemaCallback([tableSchema]);
+    };
+
+    // Download the data
+    myConnector.getData = function(table, doneCallback) {
+        $.getJSON("https://ezrhp3xg6f.execute-api.us-east-1.amazonaws.com/v1/weather", function(resp) {
+            var feat = resp.results,
+                tableData = [];
+
+            // Iterate over the JSON object
+            for (var i = 0, len = feat.length; i < len; i++) {
+                tableData.push({
+                    "weatherID": feat[i].weatherID,
+                    "AMHasPrecipitation": feat[i].AMHasPrecipitation,
+                    "AMTemperature": feat[i].AMTemperature,
+                    "AMWeather": feat[i].AMWeather,
+                    "AMWeatherIcon": feat[i].AMWeatherIcon,
+                    "PMHasPrecipitation": feat[i].PMHasPrecipitation,
+                    "PMTemperature": feat[i].PMTemperature,                  
+                    "PMWeather": feat[i].PMWeather,
+                    "PMWeatherIcon": feat[i].PMWeatherIcon,                    
+                    "travel_date": feat[i].travel_date
+                });
+            }
+
+            table.appendRows(tableData);
+            doneCallback();
         });
-        tableData.push(tableEntry);
-      }
-      // Once we have all the data parsed, we send it to the Tableau table object
-      table.appendRows(tableData);
-      doneCallback();
+    };
+
+    tableau.registerConnector(myConnector);
+
+    // Create event listeners for when the user submits the form
+    $(document).ready(function() {
+        $("#submitButton").click(function() {
+            tableau.connectionName = "SDOT Weather Feed"; // This will be the data source name in Tableau
+            tableau.submit(); // This sends the connector object to Tableau
+        });
     });
-  }
-  tableau.registerConnector(myConnector);
 })();
-
-
-// Helper function that loads a json and a callback to call once that file is loaded
-
-function loadJSON(path, cb, isLocal) {
-  var obj = new XMLHttpRequest();
-  obj.overrideMimeType("application/json");
-  if(isLocal) {
-    obj.open("GET", "../json/" + path + ".json", true);
-  }
-  else {
-    //obj.open("GET", "http://jsonplaceholder.typicode.com/" + path, true);
-    obj.open("GET", "https://ezrhp3xg6f.execute-api.us-east-1.amazonaws.com/v1/weather", true);
-  }
-  obj.onreadystatechange = function() {
-    if (obj.readyState == 4 && obj.status == "200"){
-      cb(obj.responseText);
-    }
-  }
-  obj.send(null);
-}
-
-function send() {
-  tableau.submit();
-}
