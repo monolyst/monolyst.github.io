@@ -12,10 +12,10 @@
             dataType: tableau.dataTypeEnum.string
         }, {
             id: "StartDateUTC",
-            dataType: tableau.dataTypeEnum.date
+            dataType: tableau.dataTypeEnum.datetime
         }, {
             id: "EndDateUTC",
-            dataType: tableau.dataTypeEnum.date
+            dataType: tableau.dataTypeEnum.datetime
         }, {
             id: "On_street",
             dataType: tableau.dataTypeEnum.string
@@ -24,10 +24,10 @@
             dataType: tableau.dataTypeEnum.date
         }, {    
             id: "Lat",
-            dataType: tableau.dataTypeEnum.geometry
+            dataType: tableau.dataTypeEnum.number
         }, {                     
             id: "Lon",
-            dataType: tableau.dataTypeEnum.geometry
+            dataType: tableau.dataTypeEnum.number
         }];
 
         var tableSchema = {
