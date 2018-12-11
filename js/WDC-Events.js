@@ -48,14 +48,14 @@
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "EventID": feat[i].weatherID,                
-                    "Description": feat[i].AMHasPrecipitation,
-                    "StartDateUTC": feat[i].AMTemperature,
-                    "EndDateUTC": feat[i].AMWeather,
-                    "On_street": feat[i].AMWeatherIcon,
-                    "TravelDate": feat[i].PMHasPrecipitation,
-                    "Lat": feat[i].PMWeatherIcon,    
-                    "Lon": feat[i].travel_date
+                    "EventID": feat[i].EventID,                
+                    "Description": feat[i].Description,
+                    "StartDateUTC": feat[i].StartDateUTC,
+                    "EndDateUTC": feat[i].EndDateUTC,
+                    "On_street": feat[i].On_street,
+                    "TravelDate": feat[i].TravelDate,
+                    "Lat": feat[i].Lat,    
+                    "Lon": feat[i].Lon
                 });
             }
 
