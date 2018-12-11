@@ -7,31 +7,7 @@
         var cols = [{
             id: "weatherID",
             dataType: tableau.dataTypeEnum.string
-        }, {
-            id: "AMHasPrecipitation",
-            dataType: tableau.dataTypeEnum.bool
-        }, {
-            id: "AMTemperature",
-            dataType: tableau.dataTypeEnum.float
-        }, {
-            id: "AMWeather",
-            dataType: tableau.dataTypeEnum.string
-        }, {
-            id: "AMWeatherIcon",
-            dataType: tableau.dataTypeEnum.float
-        }, {
-            id: "PMHasPrecipitation",
-            dataType: tableau.dataTypeEnum.bool
-        }, {    
-            id: "PMTemperature",
-            dataType: tableau.dataTypeEnum.float
-        }, {          
-            id: "PMWeather",
-            dataType: tableau.dataTypeEnum.string
-        }, {         
-            id: "PMWeatherIcon",
-            dataType: tableau.dataTypeEnum.float
-        }, {                                   
+        }, {                     
             id: "travel_date",
             dataType: tableau.dataTypeEnum.string
         }];
@@ -54,15 +30,7 @@
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "weatherID": feat[i].weatherID,
-                    "AMHasPrecipitation": feat[i].AMHasPrecipitation,
-                    "AMTemperature": feat[i].AMTemperature,
-                    "AMWeather": feat[i].AMWeather,
-                    "AMWeatherIcon": feat[i].AMWeatherIcon,
-                    "PMHasPrecipitation": feat[i].PMHasPrecipitation,
-                    "PMTemperature": feat[i].PMTemperature,                  
-                    "PMWeather": feat[i].PMWeather,
-                    "PMWeatherIcon": feat[i].PMWeatherIcon,                    
+                    "weatherID": feat[i].weatherID,                
                     "travel_date": feat[i].travel_date
                 });
             }
