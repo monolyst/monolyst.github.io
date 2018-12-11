@@ -24,10 +24,10 @@
             dataType: tableau.dataTypeEnum.date
         }, {    
             id: "Lat",
-            dataType: tableau.dataTypeEnum.number
+            dataType: tableau.dataTypeEnum.geometry
         }, {                     
             id: "Lon",
-            dataType: tableau.dataTypeEnum.number
+            dataType: tableau.dataTypeEnum.geometry
         }];
 
         var tableSchema = {
