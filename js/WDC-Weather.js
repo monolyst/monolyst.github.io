@@ -24,7 +24,7 @@
     // Download the data
     myConnector.getData = function(table, doneCallback) {
         $.getJSON("https://ezrhp3xg6f.execute-api.us-east-1.amazonaws.com/v1/weather/", function(resp) {
-            var feat = resp.results,
+            var feat = resp["results"],
                 tableData = [];
 
             // Iterate over the JSON object
