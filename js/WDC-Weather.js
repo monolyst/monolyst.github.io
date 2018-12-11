@@ -82,7 +82,8 @@ function loadJSON(path, cb, isLocal) {
     obj.open("GET", "../json/" + path + ".json", true);
   }
   else {
-    obj.open("GET", "http://jsonplaceholder.typicode.com/" + path, true);
+    //obj.open("GET", "http://jsonplaceholder.typicode.com/" + path, true);
+    obj.open("GET", "https://ezrhp3xg6f.execute-api.us-east-1.amazonaws.com/v1/weather", true);
   }
   obj.onreadystatechange = function() {
     if (obj.readyState == 4 && obj.status == "200"){
