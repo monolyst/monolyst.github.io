@@ -5,40 +5,34 @@
     // Define the schema
     myConnector.getSchema = function(schemaCallback) {
         var cols = [{
-            id: "weatherID",
+            id: "EventID",
             dataType: tableau.dataTypeEnum.string
          }, {
-            id: "AMHasPrecipitation",
-            dataType: tableau.dataTypeEnum.bool
-        }, {
-            id: "AMTemperature",
-            dataType: tableau.dataTypeEnum.float
-        }, {
-            id: "AMWeather",
+            id: "Description",
             dataType: tableau.dataTypeEnum.string
         }, {
-            id: "AMWeatherIcon",
-            dataType: tableau.dataTypeEnum.float
-        }, {
-            id: "PMHasPrecipitation",
-            dataType: tableau.dataTypeEnum.bool
-        }, {    
-            id: "PMTemperature",
-            dataType: tableau.dataTypeEnum.float
-        }, {          
-            id: "PMWeather",
-            dataType: tableau.dataTypeEnum.string
-        }, {         
-            id: "PMWeatherIcon",
-            dataType: tableau.dataTypeEnum.float
-        }, {                     
-            id: "travel_date",
+            id: "StartDateUTC",
             dataType: tableau.dataTypeEnum.date
+        }, {
+            id: "EndDateUTC",
+            dataType: tableau.dataTypeEnum.date
+        }, {
+            id: "On_street",
+            dataType: tableau.dataTypeEnum.string
+        }, {
+            id: "TravelDate",
+            dataType: tableau.dataTypeEnum.date
+        }, {    
+            id: "Lat",
+            dataType: tableau.dataTypeEnum.geometry
+        }, {                     
+            id: "Lon",
+            dataType: tableau.dataTypeEnum.geometry
         }];
 
         var tableSchema = {
-            id: "weather",
-            alias: "weather",
+            id: "events",
+            alias: "events",
             columns: cols
         };
 
@@ -54,16 +48,14 @@
             // Iterate over the JSON object
             for (var i = 0, len = feat.length; i < len; i++) {
                 tableData.push({
-                    "weatherID": feat[i].weatherID,                
-                    "AMHasPrecipitation": feat[i].AMHasPrecipitation,
-                    "AMTemperature": feat[i].AMTemperature,
-                    "AMWeather": feat[i].AMWeather,
-                    "AMWeatherIcon": feat[i].AMWeatherIcon,
-                    "PMHasPrecipitation": feat[i].PMHasPrecipitation,
-                    "PMTemperature": feat[i].PMTemperature,                  
-                    "PMWeather": feat[i].PMWeather,
-                    "PMWeatherIcon": feat[i].PMWeatherIcon,    
-                    "travel_date": feat[i].travel_date
+                    "EventID": feat[i].weatherID,                
+                    "Description": feat[i].AMHasPrecipitation,
+                    "StartDateUTC": feat[i].AMTemperature,
+                    "EndDateUTC": feat[i].AMWeather,
+                    "On_street": feat[i].AMWeatherIcon,
+                    "TravelDate": feat[i].PMHasPrecipitation,
+                    "Lat": feat[i].PMWeatherIcon,    
+                    "Lon": feat[i].travel_date
                 });
             }
 
@@ -77,7 +69,7 @@
     // Create event listeners for when the user submits the form
     $(document).ready(function() {
         $("#submitButton").click(function() {
-            tableau.connectionName = "SDOT Weather Feed"; // This will be the data source name in Tableau
+            tableau.connectionName = "SDOT Events Feed"; // This will be the data source name in Tableau
             tableau.submit(); // This sends the connector object to Tableau
         });
     });
