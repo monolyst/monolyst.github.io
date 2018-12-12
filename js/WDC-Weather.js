@@ -32,7 +32,7 @@
             id: "PMWeatherIcon",
             dataType: tableau.dataTypeEnum.float
         }, {                     
-            id: "travel_date",
+            id: "TravelDate",
             dataType: tableau.dataTypeEnum.date
         }];
 
@@ -63,7 +63,7 @@
                     "PMTemperature": feat[i].PMTemperature,                  
                     "PMWeather": feat[i].PMWeather,
                     "PMWeatherIcon": feat[i].PMWeatherIcon,    
-                    "travel_date": feat[i].travel_date
+                    "TravelDate": feat[i].travel_date
                 });
             }
 
