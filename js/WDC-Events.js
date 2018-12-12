@@ -20,6 +20,9 @@
             id: "On_street",
             dataType: tableau.dataTypeEnum.string
         }, {
+            id: "Subtype",
+            dataType: tableau.dataTypeEnum.string
+        }, {
             id: "TravelDate",
             dataType: tableau.dataTypeEnum.date
         }, {    
@@ -53,6 +56,7 @@
                     "StartDateUTC": feat[i].StartDateUTC,
                     "EndDateUTC": feat[i].EndDateUTC,
                     "On_street": feat[i].On_street,
+                    "Subtype": feat[i].Subtype,
                     "TravelDate": feat[i].TravelDate,
                     "Lat": feat[i].Lat,    
                     "Lon": feat[i].Lon
