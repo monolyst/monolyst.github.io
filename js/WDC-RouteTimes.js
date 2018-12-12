@@ -28,8 +28,8 @@
         }];
 
         var tableSchema = {
-            id: "weather",
-            alias: "weather",
+            id: "routetimes",
+            alias: "routetimes",
             columns: cols
         };
 
