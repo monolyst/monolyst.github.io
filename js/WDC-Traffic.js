@@ -5,40 +5,49 @@
     // Define the schema
     myConnector.getSchema = function(schemaCallback) {
         var cols = [{
-            id: "weatherID",
+            id: "TrafficID",
             dataType: tableau.dataTypeEnum.string
          }, {
-            id: "AMHasPrecipitation",
-            dataType: tableau.dataTypeEnum.bool
-        }, {
-            id: "AMTemperature",
+            id: "hour",
             dataType: tableau.dataTypeEnum.float
         }, {
-            id: "AMWeather",
-            dataType: tableau.dataTypeEnum.string
-        }, {
-            id: "AMWeatherIcon",
+            id: "baseline_delay_hours",
             dataType: tableau.dataTypeEnum.float
         }, {
-            id: "PMHasPrecipitation",
-            dataType: tableau.dataTypeEnum.bool
+            id: "delay_hours",
+            dataType: tableau.dataTypeEnum.float
+        }, {
+            id: "base_volume_SLU_Inbound",
+            dataType: tableau.dataTypeEnum.float
+        }, {
+            id: "base_volume_SLU_Outbound",
+            dataType: tableau.dataTypeEnum.float
         }, {    
-            id: "PMTemperature",
+            id: "base_volume_Sodo_Inbound",
             dataType: tableau.dataTypeEnum.float
         }, {          
-            id: "PMWeather",
-            dataType: tableau.dataTypeEnum.string
-        }, {         
-            id: "PMWeatherIcon",
+            id: "base_volume_Sodo_Outbound",
             dataType: tableau.dataTypeEnum.float
-        }, {                     
-            id: "travel_date",
+        }, {         
+            id: "volume_SLU_Inbound",
+            dataType: tableau.dataTypeEnum.float
+        }, {    
+            id: "volume_SLU_Outbound",
+            dataType: tableau.dataTypeEnum.float
+        }, {    
+            id: "volume_Sodo_Inbound",
+            dataType: tableau.dataTypeEnum.float
+        }, {    
+            id: "volume_Sodo_Outbound",
+            dataType: tableau.dataTypeEnum.float
+        }, {    
+            id: "TravelDate",
             dataType: tableau.dataTypeEnum.date
         }];
 
         var tableSchema = {
-            id: "weather",
-            alias: "weather",
+            id: "traffic",
+            alias: "traffic",
             columns: cols
         };
 
