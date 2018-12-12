@@ -23,8 +23,8 @@
             id: "hour",
             dataType: tableau.dataTypeEnum.float
         }, {    
-            id: "route_ID",
-            dataType: tableau.dataTypeEnum.string
+            id: "route_id",
+            dataType: tableau.dataTypeEnum.float
         }, {
             id: "TravelDate",
             dataType: tableau.dataTypeEnum.date
@@ -54,7 +54,7 @@
                     "baseline_bus_tti": feat[i].baseline_bus_tti,
                     "baseline_gp_tti": feat[i].baseline_gp_tti,
                     "hour": feat[i].hour,    
-                    "routeID": feat[i].routeID,  
+                    "route_id": feat[i].route_id,  
                     "TravelDate": feat[i].TravelDate
                 });
             }
