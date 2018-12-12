@@ -63,7 +63,7 @@
                     "PMTemperature": feat[i].PMTemperature,                  
                     "PMWeather": feat[i].PMWeather,
                     "PMWeatherIcon": feat[i].PMWeatherIcon,    
-                    "TravelDate": feat[i].travel_date
+                    "TravelDate": feat[i].TravelDate
                 });
             }
 
