@@ -31,6 +31,9 @@
         }, {                     
             id: "Lon",
             dataType: tableau.dataTypeEnum.float
+        }, {
+            id: "Geometry",
+            dataType: tableau.dataTypeEnum.string  
         }];
 
         var tableSchema = {
@@ -59,7 +62,8 @@
                     "Subtype": feat[i].Subtype,
                     "TravelDate": feat[i].TravelDate,
                     "Lat": feat[i].Lat,    
-                    "Lon": feat[i].Lon
+                    "Lon": feat[i].Lon,
+                    "Geometry": feat[i].Description
                 });
             }
 
