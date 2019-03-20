@@ -63,7 +63,7 @@
                     "TravelDate": feat[i].TravelDate,
                     "Lat": feat[i].Lat,    
                     "Lon": feat[i].Lon,
-                    "Geometry": feat[i].Description
+                    "Geometry": feat[i].Geometry
                 });
             }
 
