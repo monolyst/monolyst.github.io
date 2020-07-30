@@ -13,7 +13,7 @@
   }  
   var myURL = "https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/" + getUrlVars()["iid"];
   console.log(myURL);
-  bg.style.image = "url(" + myURL + ")";
+  bg.style.setProperty('--bgImage', "url(" + myURL + ")");
 </script>
   
 <style>
@@ -24,7 +24,7 @@ body, html {
 
 .bg {
   /* The image used */
-
+  background-image: var(--bgImage);
   /* Full height */
   height: 100%; 
 
