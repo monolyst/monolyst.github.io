@@ -2,6 +2,20 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+    
+    var myURL = getUrlVars()["iid"];
+
+}
+</script>
+  
 <style>
 body, html {
   height: 100%;
@@ -10,7 +24,7 @@ body, html {
 
 .bg {
   /* The image used */
-  background-image: url("https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/TC36774018.png");
+  background-image: url("https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/"+myURL);
 
   /* Full height */
   height: 100%; 
