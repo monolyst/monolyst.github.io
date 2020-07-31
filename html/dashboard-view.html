@@ -14,24 +14,23 @@
   var myURL = "https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/" + getUrlVars()["iid"];
   console.log(myURL);
 
+  var newStyles = document.createElement('style')
+  document.head.append(newStyles)
+  newStyles.innerHTML = "body,html {" +
+  " height: 100%;" +
+  " margin: 0;" +
+  " }" +
+  " .bg {" +
+
+  " background-image: url('https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/TC36774024.png');" +
+  " height: 100%;" +
+  " background-position: center;" +
+  " background-repeat: no-repeat;" +
+  " background-size: cover;" +
+" }"
+
 </script>
 
-<style>
-body, html {
-  height: 100%;
-  margin: 0;
-}
-
-.bg {
- background-image: var("https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/TC36774024.png");
- height: 100%;
- background-position: center;
- background-repeat: no-repeat;
- background-size: cover;
-}
-
-
-</style>
 </head>
 <body>
 
