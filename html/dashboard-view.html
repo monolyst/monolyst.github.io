@@ -10,13 +10,29 @@
         vars[key] = value;
     });
     return vars;
-  }  
+  }
   var myURL = "https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/" + getUrlVars()["iid"];
   console.log(myURL);
-  var bg = document.querySelector('bg')
-  bg.style.setProperty('--bgImage', "url(" + myURL + ")");
+/*
+  var newStyles = document.createElement('style')
+  document.head.append(newStyles)
+  newStyles.innerHTML = ".bg {" +
+
+  // The image used
+  "background-image: var(" + myURL + ");" +
+
+  // Full height
+  "height: 100%;" +
+
+  // Center and scale the image nicely
+  "background-position: center;" +
+  "background-repeat: no-repeat;" +
+  "background-size: cover;" +
+"}"
+*/
+
 </script>
-  
+
 <style>
 body, html {
   height: 100%;
@@ -24,21 +40,20 @@ body, html {
 }
 
 .bg {
-  /* The image used */
-  background-image: var(--bgImage);
-  /* Full height */
-  height: 100%; 
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+ background-image: var("https://www.seattle.gov/Assets/Images/Departments/SDOT/ApplicationAssets/socrata/TC36774024.png");
+ height: 100%;
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
 }
+
+
+
 </style>
 </head>
 <body>
 
 <div class="bg"></div>
-  
+
 </body>
 </html>
