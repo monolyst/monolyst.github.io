@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+  }
+  var myURL = "getUrlVars()["iid"];
+  console.log(myURL);
+
+  var newStyles = document.createElement('style')
+  document.head.append(newStyles)
+  newStyles.innerHTML = "body,html {" +
+  " height: 100%;" +
+  " margin: 0;" +
+  " }" +
+  " .bg {" +
+
+  " background-image: url('" + myURL + "');" +
+  " height: 100%;" +
+  " background-position: center;" +
+  " background-repeat: no-repeat;" +
+  " background-size: cover;" +
+" }"
+
+</script>
+
+</head>
+<body>
+
+<div class="bg"></div>
+
+</body>
+</html>
