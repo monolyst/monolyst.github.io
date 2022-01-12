@@ -609,6 +609,20 @@ function click(d) {
   update(d);
 }
 
+//Collapse the Node and all its Children
+function collapse(d) {
+if (d.children) {
+  d.all_children = d.children;
+  d._children = d.children;
+  d._children.forEach(collapse);
+
+  d.children = null;
+  d.hidden = true;
+}
+}
+
+ root.children.forEach(collapse);
+	
 </script>
 	
   </body>
