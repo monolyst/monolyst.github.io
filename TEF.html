@@ -40,26 +40,32 @@
 
 var treeData = [
     {
+        "name": "TEF",
         "parent": "null",
-        "name": "Community Engagement",
-        "children": []
-    },
-    {
-        "parent": "null",
-        "name": "COVID-19",
-        "children": []
-    },
-    {
-        "parent": "null",
-        "name": "Economic Development",
-        "children": []
-    },
-    {
-        "parent": "null",
-        "name": "Infrastructure, Planning, and Maintenance",
-        "children": []
+        "children": [
+            {
+                "parent": "TEF",
+                "name": "Community Engagement",
+                "children": []
+            },
+            {
+                "parent": "TEF",
+                "name": "COVID-19",
+                "children": []
+            },
+            {
+                "parent": "TEF",
+                "name": "Economic Development",
+                "children": []
+            },
+            {
+                "parent": "TEF",
+                "name": "Infrastructure, Planning, and Maintenance",
+                "children": []
+            }
+        ]
     }
-	];
+];
 
 // ************** Generate the tree diagram	 *****************
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
