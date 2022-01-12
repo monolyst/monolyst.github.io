@@ -609,21 +609,23 @@ function click(d) {
   update(d);
 }
 
-//Collapse the Node and all its Children
-function collapse(d) {
-if (d.children) {
-  d.all_children = d.children;
-  d._children = d.children;
-  d._children.forEach(collapse);
-
-  d.children = null;
-  d.hidden = true;
-}
-}
-
-root.children.forEach(collapse);
-collapse(root);
+ //Changes added for collapsing starts//
+ function collapse(d) {
+   if (d.children) {
+     d._children = d.children;
+     d._children.forEach(collapse);
+     d.children = null;
+   }
+ }
 	
+ //Only children will be collpased
+ root.children.forEach(collapse);
+ // To collapse all to root element
+ collapse(root);
+
+ //Changes added for collapsing ends//
+ update(root);
+
 </script>
 	
   </body>
