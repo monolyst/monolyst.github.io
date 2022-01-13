@@ -484,7 +484,7 @@ var treeData = [
 // ************** Generate the tree diagram	 *****************
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
 	width = 960 - margin.right - margin.left,
-	height = 700 - margin.top - margin.bottom;
+	height = 760 - margin.top - margin.bottom;
 	
 var i = 0,
 	duration = 750,
@@ -508,7 +508,7 @@ root.y0 = 0;
   
 update(root);
 
-d3.select(self.frameElement).style("height", "700px");
+d3.select(self.frameElement).style("height", "760px");
 
 function update(source) {
 
@@ -517,7 +517,7 @@ function update(source) {
 	  links = tree.links(nodes);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  nodes.forEach(function(d) { d.y = d.depth * 160; });
 
   // Update the nodes…
   var node = svg.selectAll("g.node")
@@ -539,7 +539,7 @@ function update(source) {
 	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
 	  .text(function(d) { return d.name; })
 	  .style("fill-opacity", 1e-6)
-    .call(wrap,250); //wrap the text in < 200 pixels
+    .call(wrap); //wrap the text in < 200 pixels
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
@@ -599,7 +599,8 @@ function update(source) {
 }
 
 
-function wrap(text, width) {
+function wrap(text) {
+var wrapwidth
     text.each(function () {
         var text = d3.select(this),
             words = text.text().split(" ").reverse(),
@@ -615,10 +616,13 @@ function wrap(text, width) {
                         .attr("x", x)
                         .attr("y", y)
                         .attr("dy", dy + "em");
+                        
+        if (words.length > 7) {wrapwidth = 340} else {wrapwidth = 140}
+        
         while (word = words.pop()) {
             line.push(word);
             tspan.text(line.join(" "));
-            if (tspan.node().getComputedTextLength() > width) {
+            if (tspan.node().getComputedTextLength() > wrapwidth) {
                 line.pop();
                 tspan.text(line.join(" "));
                 line = [word];
@@ -638,59 +642,55 @@ function wrap(text, width) {
 
 // Toggle children on click.
 function click(d) {
+ 
   if (d.children) {
 	d._children = d.children;
   console.log("off " + d.name + " " + d.depth)
 	d.children = null;
   } else {
-  collapse2(d)
+  if (d.depth == 2){collapseLevel2()}
+  if (d.depth == 1){collapseLevel1()}
+
+
+      //update(d)
+      
+  collapse(d)
 	d.children = d._children;
   console.log("on " + d.name + " " + d.depth)
-
 	d._children = null;
   }
   
   update(d);
 }
-
  //Changes added for collapsing starts//
  function collapse(d) {
    if (d.children) {
+      
      d._children = d.children;
-     d._children.forEach(collapse);
      d.children = null;
-     
+     d._children.forEach(collapse);
    }
    update(d);
  }
 	
- function collapse2(d) {
-   if (d.children) {
-   	 if (d.depth ==1) {console.log(d.name)}
-     d._children = d.children;
-     d._children.forEach(collapse)
-     d.children = null;
-   }
-   update(d);
- }
- 
  
 // collapse level d  
-function collapseLevel(d) {
-	if (d.depth ==1) { 
-		console.log(d.name + " " + d.depth); 
-		if (d.children) {
-			console.log(d.children);
-			console.log(d);
-			d._children = d.children;
-			d.children = null;
-			update(d);
-  }
-};
+function collapseLevel2() {
+ if (root.children[0].children) {root.children[0].children.forEach(collapse);}
+ if (root.children[1].children) {root.children[1].children.forEach(collapse);}
+ if (root.children[2].children) {root.children[2].children.forEach(collapse);}
+ if (root.children[3].children) {root.children[3].children.forEach(collapse);}
 } 
 
+function collapseLevel1() {
+	root.children.forEach(collapse);
+} 
+
+
+ //collapseLevel()
  //Only children will be collpased
- root.children.forEach(collapse2);
+ root.children.forEach(collapse);
+ //collapseLevel()
  
  // To collapse all to root element
  //collapse(root);
@@ -700,5 +700,7 @@ function collapseLevel(d) {
 
 </script>
 	
+  </body>
+</html>
   </body>
 </html>
