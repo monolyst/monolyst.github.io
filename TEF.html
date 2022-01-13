@@ -484,7 +484,7 @@ var treeData = [
 // ************** Generate the tree diagram	 *****************
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
 	width = 960 - margin.right - margin.left,
-	height = 800 - margin.top - margin.bottom;
+	height = 700 - margin.top - margin.bottom;
 	
 var i = 0,
 	duration = 750,
@@ -508,7 +508,7 @@ root.y0 = 0;
   
 update(root);
 
-d3.select(self.frameElement).style("height", "500px");
+d3.select(self.frameElement).style("height", "700px");
 
 function update(source) {
 
@@ -535,10 +535,11 @@ function update(source) {
 
   nodeEnter.append("text")
 	  .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
-	  .attr("dy", ".35em")
+	  //.attr("dy", ".35em")
 	  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
 	  .text(function(d) { return d.name; })
-	  .style("fill-opacity", 1e-6);
+	  .style("fill-opacity", 1e-6)
+    .call(wrap,250); //wrap the text in < 200 pixels
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
@@ -597,15 +598,58 @@ function update(source) {
   });
 }
 
+
+function wrap(text, width) {
+    text.each(function () {
+        var text = d3.select(this),
+            words = text.text().split(" ").reverse(),
+            word,
+            line = [],
+            lineNumber = 1,
+            lineHeight = 1, // ems
+            x = text.attr("x"),
+            y = text.attr("y"),
+            dy = .35, //parseFloat(text.attr("dy")),
+            tspan = text.text(null)
+                        .append("tspan")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("dy", dy + "em");
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("dy", (dy + (lineNumber * lineHeight)) + "em")
+                            .text(word);
+            }
+        }
+    });
+}
+
+
+
+
+
 // Toggle children on click.
 function click(d) {
   if (d.children) {
 	d._children = d.children;
+  console.log("off " + d.name + " " + d.depth)
 	d.children = null;
   } else {
+  collapse2(d)
 	d.children = d._children;
+  console.log("on " + d.name + " " + d.depth)
+
 	d._children = null;
   }
+  
   update(d);
 }
 
@@ -615,14 +659,41 @@ function click(d) {
      d._children = d.children;
      d._children.forEach(collapse);
      d.children = null;
+     
    }
    update(d);
  }
 	
+ function collapse2(d) {
+   if (d.children) {
+   	 if (d.depth ==1) {console.log(d.name)}
+     d._children = d.children;
+     d._children.forEach(collapse)
+     d.children = null;
+   }
+   update(d);
+ }
+ 
+ 
+// collapse level d  
+function collapseLevel(d) {
+	if (d.depth ==1) { 
+		console.log(d.name + " " + d.depth); 
+		if (d.children) {
+			console.log(d.children);
+			console.log(d);
+			d._children = d.children;
+			d.children = null;
+			update(d);
+  }
+};
+} 
+
  //Only children will be collpased
- root.children.forEach(collapse);
+ root.children.forEach(collapse2);
+ 
  // To collapse all to root element
- collapse(root);
+ //collapse(root);
 
  //Changes added for collapsing ends//
  update(root);
